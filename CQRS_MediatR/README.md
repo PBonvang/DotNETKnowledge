@@ -12,5 +12,13 @@ Disadvantages:
 - Increased complexity: CQRS might seem simple upfront but can lead to confusion as "one" system has multiple data stores, models and entities. With the introduction of event sourcing it becomes even more complex.
 - Eventual consistency: As the read and write data stores might be different it's crucial to have the different stores synchronized.  
 
+## MediatR
+The MediatR nuget package provides the necessary functionality to implement the *[mediator pattern](https://en.wikipedia.org/wiki/Mediator_pattern)* in a .NET application.  
+It does this by providing 3 interfaces:  
+**IRequest<RESPONSE_TYPE>**: Used for requests which in the terms of CQRS are commands and queries.  
+In case you wish to return nothing from the request use the *Unit* type.  
+**IRequestHandler<REQUEST_TYPE, RESPONSE_TYPE>**: Used as the executor of the requests. Includes the *Handle* method used to execute the request. The handler is where dependencies and functionality are present.
+**IPipelineBehavior<TIn,TOut>**: Used to create middleware/pipeline behavior for requests. When added to the scope the pipes will be used ordered from top to bottom.
+
 ## Sources
 - https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
