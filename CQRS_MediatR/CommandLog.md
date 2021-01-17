@@ -11,3 +11,8 @@ dotnet add Api reference Services
 
 dotnet new ClassLib -o DataAccess
 dotnet add Services reference DataAccess
+dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Sqlite --version 5.0.2
+dotnet sln CQRS_MediatR.sln add DataAccess
+dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Design --version 5.0.2
+dotnet ef migrations add InitialStructure -p DataAccess/
+dotnet ef database update -p DataAccess/
