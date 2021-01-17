@@ -30,8 +30,12 @@ My experiences:
 This project is created entirely in the dev container, this is to be able to have a shared and indentical development environment between developers.
 My experiences:  
 - Omnisharp has to be restarted quite frequently, basically everytime I switch between files in different projects.  
-    - Errors: 
-        - Can't find custom attr constructor image: /workspaces/DotNETLearningProjects/CQRS_MediatR/Services/bin/Debug/net5.0/Services.dll mtoken: 0x0a000001 due to: Cannot resolve dependency to assembly because it has not been preloaded. When using the ReflectionOnly APIs, dependent assemblies must be pre-loaded or loaded on demand through the ReflectionOnlyAssemblyResolve event.
+**Error:** Can't find custom attr constructor image: /workspaces/DotNETLearningProjects/CQRS_MediatR/Services/bin/Debug/net5.0/Services.dll mtoken: 0x0a000001 due to: Cannot resolve dependency to assembly because it has not been preloaded. When using the ReflectionOnly APIs, dependent assemblies must be pre-loaded or loaded on demand through the ReflectionOnlyAssemblyResolve event.
+- Dotnet tools aren't installed when installed in DockerFile.  
+**Error:** Placed *RUN dotnet tool install -g dotnet-ef* in the DockerFile, then after building *dotnet tool list -g* show that it's not installed.  
+**Work around:**
+1. Set the PATH environment variable in the DockerFile: *ENV PATH="${PATH}:/home/vscode/.dotnet/tools"*
+2. Add the installation of the tool in the postCreateCommand: *dotnet tool install -g dotnet-ef && dotnet restore*
 
 
 ## Sources
