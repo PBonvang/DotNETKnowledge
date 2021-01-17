@@ -20,7 +20,7 @@ namespace Services.Commands
 
             var newCar = new Car
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Name = request.Name
             };
 
