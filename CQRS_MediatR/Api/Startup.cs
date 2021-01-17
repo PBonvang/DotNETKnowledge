@@ -52,6 +52,7 @@ namespace Api
 
         private void ConfigureMediatRPipeLine(IServiceCollection services)
         {
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestTrackingPipe<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UserIdPipe<,>));
         }
 
