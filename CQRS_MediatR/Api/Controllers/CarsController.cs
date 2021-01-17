@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Services.Commands;
+using Services.Models;
+using Services.Queries;
 
 namespace Api.Controllers
 {
@@ -11,29 +15,27 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class CarsController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IMediator _mediator;
+        public CarsController(IMediator mediator)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<CarsController> _logger;
-
-        public CarsController(ILogger<CarsController> logger)
-        {
-            _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return Ok(await _mediator.Send(new GetAllCarsQuery()));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateCar([FromBody] CreateCarCommand command)
+        {
+            var newId = await _mediator.Send(command);
+
+            return CreatedAtAction(
+                nameof(GetAllCars), 
+                new {Id = newId}
+            );
         }
     }
 }

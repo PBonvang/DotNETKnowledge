@@ -1,28 +1,30 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Services.Models;
+using Services.Wrappers;
 
 namespace Services.Queries
 {
-    public class GetAllCarsQuery : IRequest<IEnumerable<Car>>
+    public class GetAllCarsQuery : BaseRequest, IRequestWrapper<IEnumerable<Car>>
     { }
 
-    public class GetAllCarsQueryHandler : IRequestHandler<GetAllCarsQuery, IEnumerable<Car>>
+    public class GetAllCarsQueryHandler : IHandlerWrapper<GetAllCarsQuery, IEnumerable<Car>>
     {
         public GetAllCarsQueryHandler()
         {
             
         }
 
-        public async Task<IEnumerable<Car>> Handle(GetAllCarsQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<Car>>> Handle(GetAllCarsQuery request, CancellationToken cancellationToken)
         {
-            return new []
+            IEnumerable<Car> cars = new []
             {
-                new Car { Name = "Tesla" },
+                new Car { Name = $"Tesla {request.UserId}" },
                 new Car { Name = "BMW" }
             };
+
+            return Response.Ok(cars);
         }
     }
 }

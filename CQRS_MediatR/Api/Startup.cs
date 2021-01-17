@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Services.Commands;
 using Services.Queries;
 
 namespace Api
@@ -28,6 +30,8 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+            
             ConfigureMediatR(services);
 
             services.AddControllers();
@@ -39,7 +43,16 @@ namespace Api
 
         private void ConfigureMediatR(IServiceCollection services)
         {
-            services.AddMediatR(typeof(GetAllCarsQuery).Assembly);
+            ConfigureMediatRPipeLine(services);
+            
+            services.AddMediatR(
+                typeof(GetAllCarsQuery).Assembly,
+                typeof(CreateCarCommand).Assembly);
+        }
+
+        private void ConfigureMediatRPipeLine(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UserIdPipe<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

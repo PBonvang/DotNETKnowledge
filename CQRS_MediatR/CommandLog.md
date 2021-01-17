@@ -8,3 +8,6 @@ dotnet add Services package MediatR --version 9.0.0
 dotnet add Api package MediatR --version 9.0.0
 dotnet add Api package MediatR.Extensions.Microsoft.DependencyInjection --version 9.0.0
 dotnet add Api reference Services
+
+dotnet new ClassLib -o DataAccess
+dotnet add Services reference DataAccess
