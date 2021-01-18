@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Infrastructure;
 using DataAccess;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,8 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Services.Commands;
-using Services.Queries;
+using Services;
 
 namespace Api
 {
@@ -33,30 +31,16 @@ namespace Api
         {
             services.AddHttpContextAccessor();
             
-            ConfigureMediatR(services);
+            services.ConfigureMediatRPipeLine();
+            services.AddServicesDependencies();
 
-            services.AddDbContext<EntityContext>();
+            services.AddDataAccessDependencies();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
             });
-        }
-
-        private void ConfigureMediatR(IServiceCollection services)
-        {
-            ConfigureMediatRPipeLine(services);
-            
-            services.AddMediatR(
-                typeof(GetAllCarsQuery).Assembly,
-                typeof(CreateCarCommand).Assembly);
-        }
-
-        private void ConfigureMediatRPipeLine(IServiceCollection services)
-        {
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(RequestTrackingPipe<,>));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UserIdPipe<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
