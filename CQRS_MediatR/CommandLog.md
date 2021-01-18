@@ -16,3 +16,4 @@ dotnet sln CQRS_MediatR.sln add DataAccess
 dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Design --version 5.0.2
 dotnet ef migrations add InitialStructure -p DataAccess/
 dotnet ef database update -p DataAccess/
+dotnet add Api/ reference DataAccess/

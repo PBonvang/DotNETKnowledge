@@ -21,6 +21,9 @@ In case you wish to return nothing from the request use the *Unit* type.
 **IRequestHandler<REQUEST_TYPE, RESPONSE_TYPE>**: Used as the executor of the requests. Includes the *Handle* method used to execute the request. The handler is where dependencies and functionality are present.  
 **IPipelineBehavior<TIn,TOut>**: Used to create middleware/pipeline behavior for requests. When added to the scope the pipes will be used ordered from top to bottom.  
 
+**My experiences:**  
+- While debugging you have to set break points in the handlers to stop there. You cannot step over or into and get to the handler.
+
 ## Structural decisions
 ### Request and request handlers
 Requests and request handlers are placed in the same file, as this will allow us to inject the dependencies without having to create an ocean of files. This is a test, something I wish to try.  

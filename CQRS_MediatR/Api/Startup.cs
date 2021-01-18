@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Infrastructure;
+using DataAccess;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,8 @@ namespace Api
             services.AddHttpContextAccessor();
             
             ConfigureMediatR(services);
+
+            services.AddDbContext<EntityContext>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

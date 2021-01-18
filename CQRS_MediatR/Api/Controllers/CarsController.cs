@@ -21,7 +21,8 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
         {
-            return Ok(await _mediator.Send(new GetAllCarsQuery()));
+            var cars = await _mediator.Send(new GetAllCarsQuery());
+            return Ok(cars);
         }
 
         [HttpPost]
