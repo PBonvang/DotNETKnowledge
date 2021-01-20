@@ -19,7 +19,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
+        public async Task<ActionResult<IEnumerable<CarOverview>>> GetAllCars()
         {
             var cars = await _mediator.Send(new GetAllCarsQuery());
             return Ok(cars);
