@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -23,19 +24,32 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BrandOverview>> GetAllBrands()
+        public async Task<ActionResult<IEnumerable<BrandOverview>>> GetAllBrands()
         {
             var brands = await _mediator.Send(new GetAllBrandsQuery());
             return Ok(brands);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<BrandDetail>> GetBrand(Guid id)
+        {
+            var query = new GetBrandQuery
+            {
+                Id = id
+            };
+
+            var brand = await _mediator.Send(query);
+            return Ok(brand);
+        }
+
         [HttpPost]
-        public async Task<ActionResult> CreateCar([FromBody] CreateCarCommand command)
+        public async Task<ActionResult> CreateBrand([FromBody] CreateBrandCommand command)
         {
             var newId = await _mediator.Send(command);
 
             return CreatedAtAction(
-                nameof(GetAllCars), 
+                nameof(GetAllBrands), 
                 new {Id = newId}
             );
         }

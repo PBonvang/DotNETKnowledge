@@ -10,9 +10,18 @@ namespace Services.MappingProfiles
         public BrandMappingProfile()
         {
             CreateMap<Brand, BrandDetail>();
-            CreateMap<BrandDetail, Brand>();
+            CreateMap<Brand, BrandOverview>();
 
-            CreateMap<CreateBrandCommand, Brand>();
+            CreateMap<CreateBrandCommand, Brand>()
+                .ConstructUsing(src => new Brand
+                {
+                    Name = src.Name,
+                    CreatedBy = src.UserId,
+                    CreatedAt = src.RequestedAt,
+                    UpdatedBy = src.UserId,
+                    UpdatedAt = src.RequestedAt
+
+                });
         }
     }
 }
