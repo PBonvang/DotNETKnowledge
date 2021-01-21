@@ -27,7 +27,8 @@ namespace Services.Commands
         public async Task<Response<CarDetail>> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Car>(request);
-            await _db.Cars.AddAsync(entity);
+            _db.Cars.Add(entity);
+            await _db.SaveChangesAsync();
 
             var newCar = _mapper.Map<CarDetail>(entity);
             if (request.BrandId != null) newCar.Brand = await GetCarBrand(request.BrandId);
