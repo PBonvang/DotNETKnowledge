@@ -24,3 +24,6 @@ RUN if [ "$INSTALL_AZURE_CLI" = "true" ]; then bash /tmp/library-scripts/azcli-d
 
 # Install dotnet ef
 ENV PATH="${PATH}:/home/vscode/.dotnet/tools"
+
+# Install SQLite
+RUN apt-get update && apt-get install sqlite3 libsqlite3-dev -y
