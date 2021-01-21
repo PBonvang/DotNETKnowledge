@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,18 +22,35 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CarOverview>>> GetAllCars()
         {
-            var cars = await _mediator.Send(new GetAllCarsQuery());
-            return Ok(cars);
+            var response = await _mediator.Send(new GetAllCarsQuery());
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<CarDetail>> GetCar(Guid id)
+        {
+            var query = new GetCarQuery
+            {
+                Id = id
+            };
+
+            var response = await _mediator.Send(query);
+            if (response.Error) return NotFound(response);
+
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateCar([FromBody] CreateCarCommand command)
         {
-            var newId = await _mediator.Send(command);
+            var response = await _mediator.Send(command);
 
             return CreatedAtAction(
-                nameof(GetAllCars), 
-                new {Id = newId}
+                nameof(GetCar),
+                new {id = response.Data.Id},
+                response
             );
         }
     }

@@ -9,13 +9,13 @@ using Services.Wrappers;
 
 namespace Services.Commands
 {
-    public class CreateCarCommand : BaseRequest, IRequestWrapper<Guid>
+    public class CreateCarCommand : BaseRequest, IRequestWrapper<CarDetail>
     {
         public string Model { get; set; }
         public Guid BrandId { get; set; }
     }
 
-    public class CreateCarCommandHandler : IHandlerWrapper<CreateCarCommand, Guid>
+    public class CreateCarCommandHandler : IHandlerWrapper<CreateCarCommand, CarDetail>
     {
         private readonly EntityContext _db;
         private readonly IMapper _mapper;
@@ -24,12 +24,21 @@ namespace Services.Commands
             _db = db;
             _mapper = mapper;
         }
-        public async Task<Response<Guid>> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task<Response<CarDetail>> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Car>(request);
             await _db.Cars.AddAsync(entity);
 
-            return Response.Ok<Guid>(entity.Id, "Car created!");
+            var newCar = _mapper.Map<CarDetail>(entity);
+            if (request.BrandId != null) newCar.Brand = await GetCarBrand(request.BrandId);
+
+            return Response.Ok(newCar, "Car created!");
+        }
+
+        private async Task<BrandOverview> GetCarBrand(Guid brandId)
+        {
+            var entity = await _db.Brands.FindAsync(brandId);
+            return _mapper.Map<BrandOverview>(entity);
         }
     }
 }
