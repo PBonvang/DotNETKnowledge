@@ -20,8 +20,8 @@ namespace Services.Queries
         {
             IEnumerable<CarOverview> cars = new []
             {
-                new CarOverview { Name = $"Tesla {request.UserId}" },
-                new CarOverview { Name = "BMW" }
+                new CarOverview { Model = $"Tesla {request.UserId}" },
+                new CarOverview { Model = "BMW" }
             };
 
             return Response.Ok(cars);
