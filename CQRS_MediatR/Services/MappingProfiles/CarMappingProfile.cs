@@ -21,7 +21,6 @@ namespace Services.MappingProfiles
                     CreatedAt = src.RequestedAt,
                     UpdatedBy = src.UserId,
                     UpdatedAt = src.RequestedAt
-
                 });
         }
     }
