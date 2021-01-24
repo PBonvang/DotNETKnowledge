@@ -45,3 +45,4 @@ My experiences:
 ## Sources
 - https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
 - https://www.youtube.com/watch?v=xKKVW94F2bc
+- https://docs.microsoft.com/en-us/ef/core/miscellaneous/collations-and-case-sensitivity
