@@ -20,10 +20,11 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarOverview>>> GetCars([FromQuery] string modelQuery)
+        public async Task<ActionResult<IEnumerable<CarOverview>>> GetCars([FromQuery] Guid brandId, [FromQuery] string modelQuery)
         {
             var query = new GetCarsQuery
             {
+                BrandId = brandId,
                 ModelQuery = modelQuery
             };
 

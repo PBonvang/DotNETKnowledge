@@ -10,5 +10,13 @@ namespace DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=car.db");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.UseCollation("NOCASE");
+            modelBuilder.Entity<Car>().Property(x => x.Model).UseCollation("NOCASE");
+            modelBuilder.Entity<Brand>().Property(x => x.Name).UseCollation("NOCASE");
+        }
+        
     }
 }
