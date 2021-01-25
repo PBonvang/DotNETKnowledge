@@ -1,4 +1,7 @@
 # CQRS with MediatR learnings
+Also includes:  
+- AutoMapper
+- DependencyInjection files
 
 ## CQRS - Command Query Responsibility Segregation
 CQRS is the concept of separating read(queries) and write(command) operations into separate domains.  
