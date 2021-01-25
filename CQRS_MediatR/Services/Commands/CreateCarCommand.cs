@@ -31,7 +31,8 @@ namespace Services.Commands
             await _db.SaveChangesAsync();
 
             var newCar = _mapper.Map<CarDetail>(entity);
-            if (request.BrandId != null) newCar.Brand = await GetCarBrand(request.BrandId);
+            if (!Guid.Equals(request.BrandId, Guid.Empty))
+                newCar.Brand = await GetCarBrand(request.BrandId);
 
             return Response.Ok(newCar, "Car created!");
         }
