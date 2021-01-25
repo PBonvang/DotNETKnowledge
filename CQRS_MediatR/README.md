@@ -44,6 +44,14 @@ My experiences:
 1. Set the PATH environment variable in the DockerFile: *ENV PATH="${PATH}:/home/vscode/.dotnet/tools"*
 2. Add the installation of the tool in the postCreateCommand: *dotnet tool install -g dotnet-ef && dotnet restore*
 
+## AutoMapper
+AutoMapper is fantastic, it maps object properties with similar names and makes your mapping logic centralized.
+
+## Structural flaws
+
+### Model overflow
+Either we need to keep creating new model as overview and detail doesn't always make sense. Say in the case of getting a brand with it's cars, the cars currently have the brand name as well. This is duplicated data and not necessary as it requires additional querying, and the information is already provided.  
+A solution to this could be GraphQL, as the request is what specifies what fields it expects.
 
 ## Sources
 - https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
