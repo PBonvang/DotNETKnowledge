@@ -31,7 +31,10 @@ namespace Services.Queries
 
         public async Task<Response<BrandDetail>> Handle(GetBrandQuery request, CancellationToken cancellationToken)
         {
-            Brand entity = await _db.Brands.FindAsync(request.Id);
+            Brand entity = await _db.Brands
+                .Include(b => b.Cars)
+                .FirstOrDefaultAsync(b => b.Id == request.Id);
+                
             if (entity == null) return Response.Fail<BrandDetail>("No brand found");
             
             BrandDetail brand = _mapper.Map<BrandDetail>(entity);

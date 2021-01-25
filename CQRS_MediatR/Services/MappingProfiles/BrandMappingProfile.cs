@@ -21,6 +21,9 @@ namespace Services.MappingProfiles
                     UpdatedBy = src.UserId,
                     UpdatedAt = src.RequestedAt
                 });
+                
+            CreateMap<Brand, string>()
+                .ConstructUsing(src => src.Name);
         }
     }
 }

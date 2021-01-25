@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Services.Models;
 using Services.Wrappers;
 
@@ -26,7 +27,9 @@ namespace Services.Queries
 
         public async Task<Response<CarDetail>> Handle(GetCarQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _db.Cars.FindAsync(request.Id);
+            var entity = await _db.Cars.AsNoTracking()
+                .Include(c => c.Brand)
+                .FirstOrDefaultAsync(c => c.Id == request.Id);
 
             if (entity == null) return Response.Fail<CarDetail>("No car found");
 

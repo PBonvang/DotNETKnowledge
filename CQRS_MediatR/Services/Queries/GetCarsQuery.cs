@@ -36,7 +36,9 @@ namespace Services.Queries
             if (request.ModelQuery != null) 
                 query = query.Where(c => EF.Functions.Like(c.Model, $"%{request.ModelQuery}%"));
 
-            var entities = await query.ToListAsync();
+            var entities = await query
+                .Include(c => c.Brand)
+                .ToListAsync();
             IEnumerable<CarOverview> cars = entities
                 .Select(_mapper.Map<CarOverview>).ToList();
 
