@@ -39,8 +39,13 @@ query {
 ```
 
 ## .NET GraphQL Libraries
+In choosing between libraries I ended up deciding to use Hot Chocolate, as it seems prettier, is faster and has the Vue vibe. Something new and trending trending with faster dev time... 
+
 ### GraphQL .NET
 This is the first GraphQL library for .NET and is therefor the most liked and used.
 
 ### Hot chocolate
 This is a newer library which is trending.
+
+## Sources
+- https://github.com/ChilliCream/hotchocolate/issues/392
