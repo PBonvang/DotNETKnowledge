@@ -1,0 +1,9 @@
+dotnet new WebAPI -f net5.0 -o API
+rm API/WeatherForecast.cs API/Controllers/WeatherForecastController.cs
+
+dotnet new ClassLib -f net5.0 -o DataAccess
+rm DataAccess/Class1.cs
+mkdir DataAccess/Repositories
+
+dotnet new sln -n GraphQL
+dotnet sln GraphQL.sln add API DataAccess
