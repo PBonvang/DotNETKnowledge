@@ -4,9 +4,14 @@ rm API/WeatherForecast.cs API/Controllers/WeatherForecastController.cs
 dotnet new ClassLib -f net5.0 -o DataAccess
 rm DataAccess/Class1.cs
 mkdir DataAccess/Repositories
+dotnet add API/ reference DataAccess/
 
 dotnet new sln -n GraphQL
 dotnet sln GraphQL.sln add API DataAccess
 
 dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Sqlite -v 5.0.2
 dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Design -v 5.0.2
+
+dotnet add API/ package GraphQL
+dotnet add API/ package graphiql
+dotnet add API/ package GraphQL.Server.Transports.AspNetCore
