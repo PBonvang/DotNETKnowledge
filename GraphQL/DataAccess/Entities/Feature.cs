@@ -1,3 +1,5 @@
+using System;
+
 namespace DataAccess.Entities
 {
     public class Feature

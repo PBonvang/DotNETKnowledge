@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace DataAccess.Entities
 {
     public class Framework

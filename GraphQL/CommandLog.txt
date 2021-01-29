@@ -7,3 +7,6 @@ mkdir DataAccess/Repositories
 
 dotnet new sln -n GraphQL
 dotnet sln GraphQL.sln add API DataAccess
+
+dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Sqlite -v 5.0.2
+dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Design -v 5.0.2
