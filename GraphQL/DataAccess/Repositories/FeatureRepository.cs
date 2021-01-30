@@ -10,7 +10,6 @@ namespace DataAccess.Repositories
     {
         Task<List<Feature>> GetFeatures();
         Task<Feature> GetFeature(Guid id);
-        Task<List<Framework>> GetFeatureFrameworks(Guid id);
     }
     public class FeatureRepository : IFeatureRepository
     {
@@ -27,11 +26,6 @@ namespace DataAccess.Repositories
         public async Task<Feature> GetFeature(Guid id)
         {
             return await _db.Features.FindAsync(id);
-        }
-        public async Task<List<Framework>> GetFeatureFrameworks(Guid id)
-        {
-            var feature = await _db.Features.FindAsync(id);
-            return feature.Frameworks;
         }
     }
 }
