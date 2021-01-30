@@ -14,7 +14,9 @@ namespace DataAccess
 
         private static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IFrameworkRepository,FrameworkRepository>();
+            services.AddScoped<IFrameworkRepository,FrameworkRepository>();
+            services.AddScoped<IFeatureRepository,FeatureRepository>();
+            services.AddScoped<IUserRepository,UserRepository>();
             return services;
         }
     }
