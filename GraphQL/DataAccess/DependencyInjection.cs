@@ -7,8 +7,14 @@ namespace DataAccess
     {
         public static IServiceCollection AddDataAccessDependencies(this IServiceCollection services)
         {
-            services.AddDbContext<EntityContext>();
+            services.RegisterDatabaseContext();
             services.RegisterRepositories();
+            return services;
+        }
+
+        private static IServiceCollection RegisterDatabaseContext(this IServiceCollection services)
+        {
+            services.AddDbContext<EntityContext>();
             return services;
         }
 
