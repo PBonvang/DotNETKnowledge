@@ -24,6 +24,11 @@ namespace API.Types
                 .Field(f => f.Features)
                 .ResolveWith<FrameworkResolvers>(f => f.GetFeaturesAsync(default!, default!, default))
                 .Name("features");
+
+            descriptor
+                .Field(f => f.Users)
+                .ResolveWith<FrameworkResolvers>(f => f.GetFeaturesAsync(default!, default!, default))
+                .Name("users");
         }
 
         private class FrameworkResolvers
@@ -34,6 +39,14 @@ namespace API.Types
                 CancellationToken cancellationToken)
             {
                 return await repository.GetFrameworkFeatures(framework.Id);
+            }
+
+            public async Task<IEnumerable<User>> GetUsersAsync(
+                Framework framework,
+                [Service] IFrameworkRepository repository,
+                CancellationToken cancellationToken)
+            {
+                return await repository.GetFrameworkUsers(framework.Id);
             }
         }
     }
