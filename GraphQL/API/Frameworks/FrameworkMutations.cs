@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using API.Common;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
@@ -6,7 +7,7 @@ using HotChocolate.Types;
 
 namespace API.Frameworks
 {
-    [ExtendObjectType(Name = "Mutation")]
+    [ExtendObjectType(Name = RequestTypes.Mutation)]
     public class FrameworkMutations
     {
         public async Task<AddFrameworkPayload> AddFrameworkAsync(

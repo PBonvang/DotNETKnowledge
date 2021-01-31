@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Common;
 using API.DataLoaders;
 using API.Frameworks;
 using API.Types;
@@ -23,10 +24,13 @@ namespace API
             services.AddDataAccessDependencies();
             services
                 .AddGraphQLServer()
-                .AddQueryType<Query>()
-                .AddMutationType(d => d.Name("Mutation"))
+                .AddQueryType(t => t.Name(RequestTypes.Query))
+                    .AddTypeExtension<FrameworkQueries>()
+                .AddMutationType(d => d.Name(RequestTypes.Mutation))
                     .AddTypeExtension<FrameworkMutations>()
                 .AddType<FrameworkType>()
+                .AddType<FeatureType>()
+                .AddType<UserType>()
                 .EnableRelaySupport()
                 .AddDataLoader<FrameworkByIdDataLoader>()
                 .AddDataLoader<FeatureByIdDataLoader>();
