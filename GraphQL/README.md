@@ -47,5 +47,11 @@ This is the first GraphQL library for .NET and is therefor the most liked and us
 ### Hot chocolate
 This is a newer library which is trending.
 
+## Hot chocolate
+
+### My experiences
+- Accessing the Banana Cake Pop interface, schemas doesn't reload with the "Reload schema" button unfortunately. Maybe, it seems to have been fixed.
+
 ## Sources
 - https://github.com/ChilliCream/hotchocolate/issues/392
+- https://github.com/ChilliCream/graphql-workshop
