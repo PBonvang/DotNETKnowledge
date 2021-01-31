@@ -8,7 +8,7 @@ namespace API
 {
     public class Query
     {
-        public async Task<IQueryable<Framework>?> GetFrameworks([Service] IFrameworkRepository repository) 
+        public async Task<IQueryable<Framework>> GetFrameworks([Service] IFrameworkRepository repository) 
             => (await repository.GetFrameworks())?.AsQueryable();
     }
 }

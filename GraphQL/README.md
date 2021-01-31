@@ -49,6 +49,10 @@ This is a newer library which is trending.
 
 ## Hot chocolate
 
+### Nullability
+Nullability is a way of telling consumers if they can expect fields to be nullable or not. It's indicated by an ! after the type.  
+It seems that you can use the [Required] annotation to achieve the same.
+
 ### My experiences
 - Seems weird that you have to add nullability to all entities.
 

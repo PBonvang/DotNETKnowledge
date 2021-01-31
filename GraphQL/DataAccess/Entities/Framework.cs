@@ -8,9 +8,9 @@ namespace DataAccess.Entities
     {
         public Guid Id { get; set; }
         [Required]
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public List<User>? Users { get; set; }
-        public List<Feature>? Features { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<User> Users { get; set; }
+        public List<Feature> Features { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace DataAccess.Entities
     {
         public Guid Id { get; set; }
         [Required]
-        public string? Name { get; set; }
-        public List<Framework>? Frameworks { get; set; }
+        public string Name { get; set; }
+        public List<Framework> Frameworks { get; set; }
     }
 }

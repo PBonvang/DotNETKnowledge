@@ -8,8 +8,8 @@ namespace DataAccess.Repositories
 {
     public interface IFeatureRepository
     {
-        Task<List<Feature>?> GetFeatures();
-        Task<Feature?> GetFeature(Guid id);
+        Task<List<Feature>> GetFeatures();
+        Task<Feature> GetFeature(Guid id);
     }
     public class FeatureRepository : IFeatureRepository
     {
@@ -19,11 +19,11 @@ namespace DataAccess.Repositories
             _db = db;
         }
 
-        public async Task<List<Feature>?> GetFeatures()
+        public async Task<List<Feature>> GetFeatures()
         {
             return await _db.Features.ToListAsync();
         }
-        public async Task<Feature?> GetFeature(Guid id)
+        public async Task<Feature> GetFeature(Guid id)
         {
             return await _db.Features.FindAsync(id);
         }
