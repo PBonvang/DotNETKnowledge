@@ -50,7 +50,7 @@ This is a newer library which is trending.
 ## Hot chocolate
 
 ### My experiences
-- Accessing the Banana Cake Pop interface, schemas doesn't reload with the "Reload schema" button unfortunately. Maybe, it seems to have been fixed.
+
 
 ## Sources
 - https://github.com/ChilliCream/hotchocolate/issues/392

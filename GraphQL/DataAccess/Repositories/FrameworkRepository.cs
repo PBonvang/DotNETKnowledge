@@ -8,6 +8,7 @@ namespace DataAccess.Repositories
 {
     public interface IFrameworkRepository
     {
+        Task<Framework> InsertFramework(Framework framework);
         Task<List<Framework>> GetFrameworks();
         Task<Framework> GetFramework(Guid id);
         Task<List<Feature>> GetFrameworkFeatures(Guid id);
@@ -19,6 +20,13 @@ namespace DataAccess.Repositories
         public FrameworkRepository(EntityContext db)
         {
             _db = db;
+        }
+
+        public async Task<Framework> InsertFramework(Framework framework)
+        {
+            await _db.Frameworks.AddAsync(framework);
+            await _db.SaveChangesAsync();
+            return framework;
         }
 
         public async Task<Framework> GetFramework(Guid id)
