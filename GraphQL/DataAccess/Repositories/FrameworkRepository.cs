@@ -9,10 +9,10 @@ namespace DataAccess.Repositories
     public interface IFrameworkRepository
     {
         Task<Framework> InsertFramework(Framework framework);
-        Task<List<Framework>> GetFrameworks();
-        Task<Framework> GetFramework(Guid id);
-        Task<List<Feature>> GetFrameworkFeatures(Guid id);
-        Task<List<User>> GetFrameworkUsers(Guid id);
+        Task<List<Framework>?> GetFrameworks();
+        Task<Framework?> GetFramework(Guid id);
+        Task<List<Feature>?> GetFrameworkFeatures(Guid id);
+        Task<List<User>?> GetFrameworkUsers(Guid id);
     }
     public class FrameworkRepository : IFrameworkRepository
     {
@@ -29,20 +29,20 @@ namespace DataAccess.Repositories
             return framework;
         }
 
-        public async Task<Framework> GetFramework(Guid id)
+        public async Task<Framework?> GetFramework(Guid id)
         {
             return await _db.Frameworks.FindAsync(id);
         }
-        public async Task<List<Framework>> GetFrameworks()
+        public async Task<List<Framework>?> GetFrameworks()
         {
             return await _db.Frameworks.ToListAsync();
         }
-        public async Task<List<Feature>> GetFrameworkFeatures(Guid id)
+        public async Task<List<Feature>?> GetFrameworkFeatures(Guid id)
         {
             var framework = await _db.Frameworks.FindAsync(id);
             return framework.Features;
         }
-        public async Task<List<User>> GetFrameworkUsers(Guid id)
+        public async Task<List<User>?> GetFrameworkUsers(Guid id)
         {
             var framework = await _db.Frameworks.FindAsync(id);
             return framework.Users;

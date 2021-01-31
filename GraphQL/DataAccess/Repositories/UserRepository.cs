@@ -8,9 +8,9 @@ namespace DataAccess.Repositories
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetUsers();
-        Task<User> GetUser(Guid id);
-        Task<List<Framework>> GetUserFrameworks(Guid id);
+        Task<List<User>?> GetUsers();
+        Task<User?> GetUser(Guid id);
+        Task<List<Framework>?> GetUserFrameworks(Guid id);
     }
     public class UserRepository : IUserRepository
     {
@@ -20,15 +20,15 @@ namespace DataAccess.Repositories
             _db = db;
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<User>?> GetUsers()
         {
             return await _db.Users.ToListAsync();
         }
-        public async Task<User> GetUser(Guid id)
+        public async Task<User?> GetUser(Guid id)
         {
             return await _db.Users.FindAsync(id);
         }
-        public async Task<List<Framework>> GetUserFrameworks(Guid id)
+        public async Task<List<Framework>?> GetUserFrameworks(Guid id)
         {
             var user = await _db.Users.FindAsync(id);
             return user.Frameworks;

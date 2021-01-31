@@ -50,7 +50,7 @@ This is a newer library which is trending.
 ## Hot chocolate
 
 ### My experiences
-
+- Seems weird that you have to add nullability to all entities.
 
 ## Sources
 - https://github.com/ChilliCream/hotchocolate/issues/392
