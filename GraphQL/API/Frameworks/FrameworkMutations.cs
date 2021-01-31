@@ -1,12 +1,13 @@
 using System.Threading.Tasks;
-using API.Mutations;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
+using HotChocolate.Types;
 
-namespace API
+namespace API.Frameworks
 {
-    public class Mutation
+    [ExtendObjectType(Name = "Mutation")]
+    public class FrameworkMutations
     {
         public async Task<AddFrameworkPayload> AddFrameworkAsync(
             AddFrameworkInput input,

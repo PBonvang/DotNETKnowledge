@@ -7,6 +7,7 @@ using API.DataLoaders;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
+using HotChocolate.Types.Relay;
 
 namespace API
 {
@@ -16,7 +17,7 @@ namespace API
             => await repository.GetFrameworks();
         
         public Task<Framework> GetFrameworkAsync(
-            Guid id,
+            [ID(nameof(Framework))]Guid id,
             FrameworkByIdDataLoader dataLoader,
             CancellationToken cancellationToken) =>
                 dataLoader.LoadAsync(id, cancellationToken);

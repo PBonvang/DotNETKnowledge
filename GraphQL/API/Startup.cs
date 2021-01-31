@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DataLoaders;
+using API.Frameworks;
 using API.Types;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
@@ -23,8 +24,10 @@ namespace API
             services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
-                .AddMutationType<Mutation>()
+                .AddMutationType(d => d.Name("Mutation"))
+                    .AddTypeExtension<FrameworkMutations>()
                 .AddType<FrameworkType>()
+                .EnableRelaySupport()
                 .AddDataLoader<FrameworkByIdDataLoader>()
                 .AddDataLoader<FeatureByIdDataLoader>();
         }

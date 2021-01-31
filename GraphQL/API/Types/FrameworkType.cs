@@ -6,6 +6,7 @@ using API.DataLoaders;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 
 namespace API.Types
@@ -14,6 +15,11 @@ namespace API.Types
     {
         protected override void Configure(IObjectTypeDescriptor<Framework> descriptor)
         {
+            descriptor
+                 .ImplementsNode()
+                 .IdField(t => t.Id)
+                 .ResolveNode((ctx, id) => ctx.DataLoader<FrameworkByIdDataLoader>().LoadAsync(id, ctx.RequestAborted));
+
             descriptor
                 .Field(f => f.Features)
                 .ResolveWith<FrameworkResolvers>(f => f.GetFeaturesAsync(default!, default!, default))

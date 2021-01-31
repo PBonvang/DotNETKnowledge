@@ -1,4 +1,4 @@
-namespace API.Mutations
+namespace API.Frameworks
 {
     public record AddFrameworkInput(
         string Name,
