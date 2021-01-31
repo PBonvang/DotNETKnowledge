@@ -9,24 +9,24 @@ using HotChocolate.DataLoader;
 
 namespace API.DataLoaders
 {
-    public class FrameworkByIdDataLoader : BatchDataLoader<Guid, Framework>
+    public class FeatureByIdDataLoader : BatchDataLoader<Guid, Feature>
     {
-        private readonly IFrameworkRepository _repository;
+        private readonly IFeatureRepository _repository;
 
-        public FrameworkByIdDataLoader(
+        public FeatureByIdDataLoader(
             IBatchScheduler batchScheduler,
-            IFrameworkRepository repository
+            IFeatureRepository repository
             )
             : base(batchScheduler)
         {
             _repository = repository;
         }
 
-        protected override async Task<IReadOnlyDictionary<Guid, Framework>> LoadBatchAsync(
+        protected override async Task<IReadOnlyDictionary<Guid, Feature>> LoadBatchAsync(
             IReadOnlyList<Guid> ids,
             CancellationToken cancellationToken)
         {
-            var frameworks = await _repository.GetFrameworks(ids, cancellationToken);
+            var frameworks = await _repository.GetFeatures(ids, cancellationToken);
             return frameworks;
         }
     }

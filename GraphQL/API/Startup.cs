@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DataLoaders;
+using API.Types;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,7 +24,9 @@ namespace API
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddMutationType<Mutation>()
-                .AddDataLoader<FrameworkByIdDataLoader>();
+                .AddType<FrameworkType>()
+                .AddDataLoader<FrameworkByIdDataLoader>()
+                .AddDataLoader<FeatureByIdDataLoader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
