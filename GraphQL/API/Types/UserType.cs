@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using API.DataLoaders;
+using API.Extensions;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
@@ -20,6 +21,10 @@ namespace API.Types
                  .IdField(t => t.Id)
                  .ResolveNode((ctx, id) => ctx.DataLoader<UserByIdDataLoader>().LoadAsync(id, ctx.RequestAborted));
 
+            descriptor
+                .Field(f => f.Name)
+                .UseUpperCase();
+                
             descriptor
                 .Field(f => f.Frameworks)
                 .ResolveWith<UserResolvers>(f => f.GetFrameworksAsync(default!, default!, default))
