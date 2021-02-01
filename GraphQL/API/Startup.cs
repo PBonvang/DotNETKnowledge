@@ -28,6 +28,8 @@ namespace API
                 .AddGraphQLServer()
                 .AddQueryType(t => t.Name(RequestTypes.Query))
                     .AddTypeExtension<FrameworkQueries>()
+                    .AddTypeExtension<FeatureQueries>()
+                    .AddTypeExtension<UserQueries>()
                 .AddMutationType(d => d.Name(RequestTypes.Mutation))
                     .AddTypeExtension<FrameworkMutations>()
                     .AddTypeExtension<FeatureMutations>()
