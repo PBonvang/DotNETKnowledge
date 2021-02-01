@@ -38,6 +38,8 @@ namespace API
                 .AddType<FeatureType>()
                 .AddType<UserType>()
                 .EnableRelaySupport()
+                .AddFiltering()
+                .AddSorting()
                 .AddDataLoader<FrameworkByIdDataLoader>()
                 .AddDataLoader<FeatureByIdDataLoader>();
         }

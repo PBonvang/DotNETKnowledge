@@ -11,4 +11,5 @@ dotnet sln GraphQL.sln add API DataAccess
 dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Sqlite -v 5.0.2
 dotnet add DataAccess/ package Microsoft.EntityFrameworkCore.Design -v 5.0.2
 
-dotnet add API package HotChocolate.AspNetCore --version 11.0.0
+dotnet add API package HotChocolate.AspNetCore -v 11.0.9
+dotnet add API package HotChocolate.Data -v 11.0.9
