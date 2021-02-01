@@ -34,7 +34,9 @@ namespace DataAccess.Repositories
 
         public async Task<Framework> GetFramework(Guid id)
         {
-            return await _db.Frameworks.FindAsync(id);
+            return await _db.Frameworks
+                .Include(f => f.Features)
+                .FirstOrDefaultAsync(f => f.Id.Equals(id));
         }
         public async Task<IReadOnlyDictionary<Guid, Framework>> GetFrameworks(IReadOnlyList<Guid> ids, CancellationToken cancellationToken)
         {
@@ -50,8 +52,11 @@ namespace DataAccess.Repositories
         }
         public async Task<List<Feature>> GetFrameworkFeatures(Guid id)
         {
-            var framework = await _db.Frameworks.FindAsync(id);
-            return framework.Features;
+            var features = await _db.Frameworks
+                .Where(f => f.Id.Equals(id))
+                .SelectMany(f => f.Features)
+                .ToListAsync();
+            return features;
         }
         public async Task<List<User>> GetFrameworkUsers(Guid id)
         {
