@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Common;
 using API.DataLoaders;
+using API.Features;
 using API.Frameworks;
 using API.Types;
 using DataAccess;
@@ -28,6 +29,7 @@ namespace API
                     .AddTypeExtension<FrameworkQueries>()
                 .AddMutationType(d => d.Name(RequestTypes.Mutation))
                     .AddTypeExtension<FrameworkMutations>()
+                    .AddTypeExtension<FeatureMutations>()
                 .AddType<FrameworkType>()
                 .AddType<FeatureType>()
                 .AddType<UserType>()

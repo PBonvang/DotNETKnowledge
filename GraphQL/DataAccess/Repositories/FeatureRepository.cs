@@ -10,6 +10,7 @@ namespace DataAccess.Repositories
 {
     public interface IFeatureRepository
     {
+        Task<Feature> InsertFeature(Feature feature);
         Task<List<Feature>> GetFeatures();
         Task<IReadOnlyDictionary<Guid, Feature>> GetFeatures(IReadOnlyList<Guid> ids, CancellationToken cancellationToken);
         Task<Feature> GetFeature(Guid id);
@@ -21,7 +22,12 @@ namespace DataAccess.Repositories
         {
             _db = db;
         }
-
+        public async Task<Feature> InsertFeature(Feature feature)
+        {
+            await _db.Features.AddAsync(feature);
+            await _db.SaveChangesAsync();
+            return feature;
+        }
         public async Task<List<Feature>> GetFeatures()
         {
             return await _db.Features.ToListAsync();
