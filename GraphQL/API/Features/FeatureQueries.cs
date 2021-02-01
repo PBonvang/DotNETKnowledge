@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Common;
 using API.DataLoaders;
+using API.Types;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
@@ -16,8 +17,10 @@ namespace API.Features
     [ExtendObjectType(Name = RequestTypes.Query)]
     public class FeatureQueries
     {
+        [UsePaging(typeof(NonNullType<FeatureType>))]
         public async Task<List<Feature>> GetFeaturesAsync([Service] IFeatureRepository repository)
-            => await repository.GetFeatures();
+            => (await repository.GetFeatures())
+                .OrderBy(t => t.Name).ToList();
 
         public async Task<IEnumerable<Feature>> GetFeaturesByIdAsync(
             [ID(nameof(Feature))]Guid[] ids,

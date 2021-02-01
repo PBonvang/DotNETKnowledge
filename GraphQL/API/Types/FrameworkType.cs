@@ -23,6 +23,7 @@ namespace API.Types
             descriptor
                 .Field(f => f.Features)
                 .ResolveWith<FrameworkResolvers>(f => f.GetFeaturesAsync(default!, default!, default))
+                .UsePaging<NonNullType<FeatureType>>()
                 .Name("features");
 
             descriptor

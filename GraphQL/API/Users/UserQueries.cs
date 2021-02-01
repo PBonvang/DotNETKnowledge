@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Common;
 using API.DataLoaders;
+using API.Types;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using HotChocolate;
@@ -16,6 +17,7 @@ namespace API.Users
     [ExtendObjectType(Name = RequestTypes.Query)]
     public class UserQueries
     {
+        [UsePaging(typeof(NonNullType<UserType>))]
         public async Task<List<User>> GetUsersAsync([Service] IUserRepository repository)
             => await repository.GetUsers();
 
