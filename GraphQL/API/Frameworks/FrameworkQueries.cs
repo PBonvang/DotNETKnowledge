@@ -16,13 +16,19 @@ namespace API.Frameworks
     [ExtendObjectType(Name = RequestTypes.Query)]
     public class FrameworkQueries
     {
-        public async Task<List<Framework>> GetFrameworks([Service] IFrameworkRepository repository)
+        public async Task<List<Framework>> GetFrameworksAsync([Service] IFrameworkRepository repository)
             => await repository.GetFrameworks();
-        
-        public Task<Framework> GetFrameworkAsync(
+
+        public async Task<IEnumerable<Framework>> GetFrameworksByIdAsync(
+            [ID(nameof(Framework))]Guid[] ids,
+            FrameworkByIdDataLoader dataLoader,
+            CancellationToken cancellationToken) =>
+                await dataLoader.LoadAsync(ids, cancellationToken);
+
+        public async Task<Framework> GetFrameworkAsync(
             [ID(nameof(Framework))]Guid id,
             FrameworkByIdDataLoader dataLoader,
             CancellationToken cancellationToken) =>
-                dataLoader.LoadAsync(id, cancellationToken);
+                await dataLoader.LoadAsync(id, cancellationToken);
     }
 }
