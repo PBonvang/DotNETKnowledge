@@ -7,6 +7,7 @@ using API.DataLoaders;
 using API.Features;
 using API.Frameworks;
 using API.Types;
+using API.Users;
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace API
                 .AddMutationType(d => d.Name(RequestTypes.Mutation))
                     .AddTypeExtension<FrameworkMutations>()
                     .AddTypeExtension<FeatureMutations>()
+                    .AddTypeExtension<UserMutations>()
                 .AddType<FrameworkType>()
                 .AddType<FeatureType>()
                 .AddType<UserType>()

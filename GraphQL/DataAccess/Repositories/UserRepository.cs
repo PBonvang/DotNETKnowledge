@@ -10,6 +10,7 @@ namespace DataAccess.Repositories
 {
     public interface IUserRepository
     {
+        Task<User> InsertUser(User user);
         Task<List<User>> GetUsers();
         Task<IReadOnlyDictionary<Guid, User>> GetUsers(IReadOnlyList<Guid> ids, CancellationToken cancellationToken);
         Task<User> GetUser(Guid id);
@@ -21,6 +22,12 @@ namespace DataAccess.Repositories
         public UserRepository(EntityContext db)
         {
             _db = db;
+        }
+        public async Task<User> InsertUser(User user)
+        {
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
+            return user;
         }
 
         public async Task<List<User>> GetUsers()
@@ -43,6 +50,5 @@ namespace DataAccess.Repositories
             var user = await _db.Users.FindAsync(id);
             return user.Frameworks;
         }
-
     }
 }
