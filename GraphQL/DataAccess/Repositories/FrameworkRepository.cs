@@ -15,7 +15,9 @@ namespace DataAccess.Repositories
         Task<IReadOnlyDictionary<Guid, Framework>> GetFrameworks(IReadOnlyList<Guid> ids, CancellationToken cancellationToken);
         Task<Framework> GetFramework(Guid id);
         Task<List<Feature>> GetFrameworkFeatures(Guid id);
+        Task<FrameworkUserLink> RegisterUser(Guid frameworkId, Guid userId);
         Task<List<User>> GetFrameworkUsers(Guid id);
+        Task<Framework> UpdateFramework(Framework framework);
     }
     public class FrameworkRepository : IFrameworkRepository
     {
@@ -58,10 +60,30 @@ namespace DataAccess.Repositories
                 .ToListAsync();
             return features;
         }
+        public async Task<FrameworkUserLink> RegisterUser(Guid frameworkId, Guid userId)
+        {
+            var frameworkUserLink = new FrameworkUserLink
+            {
+                FrameworkId = frameworkId,
+                UserId = userId
+            };
+
+            await _db.FrameworkUserLinks.AddAsync(frameworkUserLink);
+            await _db.SaveChangesAsync();
+
+            return frameworkUserLink;
+        }
         public async Task<List<User>> GetFrameworkUsers(Guid id)
         {
             var framework = await _db.Frameworks.FindAsync(id);
             return framework.Users;
+        }
+
+        public async Task<Framework> UpdateFramework(Framework framework)
+        {
+            _db.Entry(framework).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+            return framework;
         }
     }
 }

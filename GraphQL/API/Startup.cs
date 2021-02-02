@@ -34,12 +34,15 @@ namespace API
                     .AddTypeExtension<FrameworkMutations>()
                     .AddTypeExtension<FeatureMutations>()
                     .AddTypeExtension<UserMutations>()
+                .AddSubscriptionType(d => d.Name(RequestTypes.Subscription))
+                    .AddTypeExtension<FrameworkSubscriptions>()
                 .AddType<FrameworkType>()
                 .AddType<FeatureType>()
                 .AddType<UserType>()
                 .EnableRelaySupport()
                 .AddFiltering()
                 .AddSorting()
+                .AddInMemorySubscriptions()
                 .AddDataLoader<FrameworkByIdDataLoader>()
                 .AddDataLoader<FeatureByIdDataLoader>();
         }
@@ -51,7 +54,8 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            app.UseWebSockets();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
